@@ -30,7 +30,7 @@ export class Board {
       for (let file = 0; file < 8; file++) {
         const r = this.game.isFlipped ? 7 - rank : rank;
         const f = this.game.isFlipped ? 7 - file : file;
-        const square = `${String.fromCharCode(97 + f)}${r + 1}` as Square;
+        const square = `${String.fromCharCode(97 + f)}${8 - r}` as Square;
         const piece = board[r][f];
 
         const sq = document.createElement('div');
@@ -203,7 +203,7 @@ export class Board {
         for (let f = 0; f < 8; f++) {
           const piece = board[r][f];
           if (piece && piece.type === 'k' && piece.color === color) {
-            const square = `${String.fromCharCode(97 + f)}${r + 1}` as Square;
+const square = `${String.fromCharCode(97 + f)}${8 - r}` as Square;
             const sq = this.squares.get(square);
             if (sq) sq.classList.add('check');
             return;
