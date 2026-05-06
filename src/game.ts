@@ -29,11 +29,11 @@ export class Game {
     };
   }
 
-  newGame(mode: GameMode, difficulty: Difficulty, clockConfig: ClockConfig) {
+  newGame(mode: GameMode, difficulty: Difficulty, clockConfig: ClockConfig, playerColor: Color = 'w') {
     this.chess.reset();
     this.mode = mode;
     this.difficulty = difficulty;
-    this.playerColor = 'w';
+    this.playerColor = playerColor;
     this.clockConfig = clockConfig;
     this.clock = {
       whiteTime: clockConfig.minutes * 60 * 1000,

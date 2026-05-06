@@ -28,7 +28,7 @@ export class Board {
 
     for (let rank = 0; rank < 8; rank++) {
       for (let file = 0; file < 8; file++) {
-        const r = this.game.isFlipped ? rank : 7 - rank;
+        const r = this.game.isFlipped ? 7 - rank : rank;
         const f = this.game.isFlipped ? 7 - file : file;
         const square = `${String.fromCharCode(97 + f)}${r + 1}` as Square;
         const piece = board[r][f];

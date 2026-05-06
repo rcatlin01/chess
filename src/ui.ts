@@ -23,6 +23,8 @@ export class UI {
   modeSelect: HTMLSelectElement;
   difficultySection: HTMLElement;
   difficultySelect: HTMLSelectElement;
+  colorSection: HTMLElement;
+  colorSelect: HTMLSelectElement;
   clockWhite: HTMLElement;
   clockBlack: HTMLElement;
   gameStatus: HTMLElement;
@@ -42,6 +44,8 @@ export class UI {
     this.modeSelect = document.getElementById('mode-select') as HTMLSelectElement;
     this.difficultySection = document.getElementById('difficulty-section')!;
     this.difficultySelect = document.getElementById('difficulty-select') as HTMLSelectElement;
+    this.colorSection = document.getElementById('color-section')!;
+    this.colorSelect = document.getElementById('color-select') as HTMLSelectElement;
     this.clockWhite = document.getElementById('clock-white')!;
     this.clockBlack = document.getElementById('clock-black')!;
     this.gameStatus = document.getElementById('game-status')!;
@@ -62,6 +66,7 @@ export class UI {
     this.modeSelect.addEventListener('change', () => {
       const isAi = this.modeSelect.value === 'ai';
       this.difficultySection.style.display = isAi ? 'block' : 'none';
+      this.colorSection.style.display = isAi ? 'block' : 'none';
     });
 
     this.difficultySelect.addEventListener('change', () => {
@@ -104,8 +109,13 @@ export class UI {
   startNewGame() {
     const mode = this.modeSelect.value as 'pvp' | 'ai';
     const difficulty = this.difficultySelect.value as 'easy' | 'medium' | 'hard';
+    const playerColor = (this.colorSelect.value as 'w' | 'b') || 'w';
+    const shouldFlip = playerColor === 'b';
+    if (this.game.isFlipped !== shouldFlip) {
+      this.board.flip();
+    }
     this.board.lastMove = null;
-    this.game.newGame(mode, difficulty, { minutes: 10, increment: 0 });
+    this.game.newGame(mode, difficulty, { minutes: 10, increment: 0 }, playerColor);
     this.board.refresh();
     this.update();
   }
