@@ -1,0 +1,274 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: #1e1e1e;
+  color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+#app {
+  display: flex;
+  gap: 24px;
+  max-width: 1000px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.board-area {
+  flex: 1 1 400px;
+  display: flex;
+  justify-content: center;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 1 / 1;
+  border: 3px solid #444;
+  border-radius: 4px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.square.light {
+  background: #eeeed2;
+}
+
+.square.dark {
+  background: #769656;
+}
+
+.square.selected {
+  background: #f6ab3f !important;
+}
+
+.square.legal-move::after {
+  content: '';
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.square.legal-move:has(.piece)::after {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 0;
+}
+
+.square.last-move {
+  filter: brightness(1.15);
+  box-shadow: inset 0 0 0 3px rgba(255, 235, 59, 0.6);
+}
+
+.square.check {
+  background: radial-gradient(ellipse at center, #ff4444 0%, #cc0000 100%) !important;
+}
+
+.piece {
+  font-size: clamp(28px, 7vw, 52px);
+  cursor: grab;
+  line-height: 1;
+  z-index: 2;
+  user-select: none;
+}
+
+.piece:active {
+  cursor: grabbing;
+}
+
+.side-panel {
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 260px;
+}
+
+.panel-section {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.panel-section label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+
+.panel-section select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #333;
+  color: #eee;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.clocks {
+  display: flex;
+  gap: 12px;
+}
+
+.clock {
+  flex: 1;
+  background: #333;
+  border-radius: 6px;
+  padding: 10px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.clock.active {
+  border-color: #4caf50;
+}
+
+.clock-label {
+  display: block;
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.clock-time {
+  display: block;
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-family: 'SF Mono', Monaco, monospace;
+}
+
+#game-status {
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  padding: 6px 0;
+}
+
+.history {
+  max-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+#move-history {
+  overflow-y: auto;
+  font-size: 13px;
+  font-family: 'SF Mono', Monaco, monospace;
+  max-height: 180px;
+}
+
+.history-row {
+  padding: 3px 0;
+  border-bottom: 1px solid #333;
+}
+
+.history-row .move-num {
+  color: #888;
+  margin-right: 4px;
+}
+
+.history-row .move {
+  display: inline-block;
+  min-width: 48px;
+  padding: 1px 4px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.history-row .move:hover {
+  background: #444;
+}
+
+#captured-pieces {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.captured-group {
+  margin-bottom: 4px;
+}
+
+.captured-white {
+  color: #fff;
+}
+
+.captured-black {
+  color: #bbb;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.controls button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background: #444;
+  color: #eee;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.controls button:hover {
+  background: #555;
+}
+
+.controls button:active {
+  background: #666;
+}
+
+#btn-new-game {
+  background: #4caf50;
+  color: #fff;
+}
+
+#btn-new-game:hover {
+  background: #43a047;
+}
+
+@media (max-width: 768px) {
+  #app {
+    flex-direction: column;
+    align-items: center;
+  }
+  .side-panel {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 560px;
+  }
+}

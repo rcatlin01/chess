@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chess</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="board-area">
+      <div id="board"></div>
+    </div>
+    <div class="side-panel">
+      <div class="panel-section mode-select">
+        <label>Mode</label>
+        <select id="mode-select">
+          <option value="pvp">Player vs Player</option>
+          <option value="ai">Player vs Computer</option>
+        </select>
+      </div>
+      <div class="panel-section difficulty-select" id="difficulty-section" style="display:none;">
+        <label>Difficulty</label>
+        <select id="difficulty-select">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <div class="panel-section clocks">
+        <div class="clock" id="clock-white">
+          <span class="clock-label">White</span>
+          <span class="clock-time">10:00</span>
+        </div>
+        <div class="clock" id="clock-black">
+          <span class="clock-label">Black</span>
+          <span class="clock-time">10:00</span>
+        </div>
+      </div>
+      <div class="panel-section status">
+        <div id="game-status">White to move</div>
+      </div>
+      <div class="panel-section history">
+        <label>Move History</label>
+        <div id="move-history"></div>
+      </div>
+      <div class="panel-section captured">
+        <label>Captured</label>
+        <div id="captured-pieces"></div>
+      </div>
+      <div class="panel-section controls">
+        <button id="btn-new-game">New Game</button>
+        <button id="btn-undo">Undo</button>
+        <button id="btn-flip">Flip Board</button>
+        <button id="btn-resign">Resign</button>
+        <button id="btn-draw">Offer Draw</button>
+        <button id="btn-download-pgn">Download PGN</button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
