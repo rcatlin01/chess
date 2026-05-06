@@ -62,11 +62,10 @@ export class UI {
     this.modeSelect.addEventListener('change', () => {
       const isAi = this.modeSelect.value === 'ai';
       this.difficultySection.style.display = isAi ? 'block' : 'none';
-      this.startNewGame();
     });
 
     this.difficultySelect.addEventListener('change', () => {
-      this.startNewGame();
+      // just update setting; user clicks New Game to start
     });
 
     this.btnNewGame.addEventListener('click', () => this.startNewGame());
@@ -131,6 +130,10 @@ export class UI {
   }
 
   updateStatus() {
+    if (!this.game.started) {
+      this.gameStatus.textContent = 'Ready — press New Game to start';
+      return;
+    }
     if (this.game.gameOver) {
       this.gameStatus.textContent = this.game.result;
       return;

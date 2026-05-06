@@ -16,6 +16,7 @@ export class Game {
   capturedBlack: Piece[] = [];
   gameOver = false;
   result = '';
+  started = false;
 
   constructor(callbacks: GameCallbacks) {
     this.chess = new Chess();
@@ -45,13 +46,14 @@ export class Game {
     this.capturedBlack = [];
     this.gameOver = false;
     this.result = '';
+    this.started = true;
     this.stopClock();
     this.startClock('w');
     this.callbacks.onMove();
   }
 
   startClock(color: Color) {
-    if (this.gameOver) return;
+    if (!this.started || this.gameOver) return;
     this.stopClock();
     this.clock.active = color;
     this.timerId = window.setInterval(() => {
@@ -91,7 +93,7 @@ export class Game {
   }
 
   makeMove(from: Square, to: Square, promotion?: string): boolean {
-    if (this.gameOver) return false;
+    if (!this.started || this.gameOver) return false;
     try {
       const move = this.chess.move({ from, to, promotion });
       if (!move) return false;
@@ -136,7 +138,7 @@ export class Game {
   }
 
   undo(): boolean {
-    if (this.gameOver || this.moveStack.length === 0) return false;
+    if (!this.started || this.gameOver || this.moveStack.length === 0) return false;
     const move = this.chess.undo();
     if (!move) return false;
     this.moveStack.pop();
@@ -162,13 +164,13 @@ export class Game {
   }
 
   resign(color: Color) {
-    if (this.gameOver) return;
+    if (!this.started || this.gameOver) return;
     const winner = color === 'w' ? 'Black' : 'White';
     this.endGame(`${winner} wins by resignation`);
   }
 
   offerDraw(): boolean {
-    if (this.gameOver) return false;
+    if (!this.started || this.gameOver) return false;
     this.endGame('Draw by agreement');
     return true;
   }

@@ -41,7 +41,7 @@ export class Board {
         if (piece) {
           const key = `${piece.color}${piece.type}`;
           const span = document.createElement('span');
-          span.className = 'piece';
+          span.className = `piece ${piece.color === 'w' ? 'white' : 'black'}`;
           span.textContent = PIECE_UNICODE[key];
           span.draggable = true;
           span.dataset.square = square;
