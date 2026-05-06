@@ -25,6 +25,5 @@ const game = new Game({
 const board = new Board(game, 'board');
 const ui = new UI(game, board);
 
-// Render initial board without starting the game
-board.render();
-ui.update();
+// Start the game immediately
+ui.startNewGame();

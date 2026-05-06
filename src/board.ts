@@ -2,8 +2,8 @@ import type { Game } from './game';
 import type { Square } from 'chess.js';
 
 const PIECE_UNICODE: Record<string, string> = {
-  wp: '♙', wn: '♘', wb: '♗', wr: '♖', wq: '♕', wk: '♔',
-  bp: '♟', bn: '♞', bb: '♝', br: '♜', bq: '♛', bk: '♚',
+  wp: '\u265F\uFE0E', wn: '\u265E\uFE0E', wb: '\u265D\uFE0E', wr: '\u265C\uFE0E', wq: '\u265B\uFE0E', wk: '\u265A\uFE0E',
+  bp: '\u265F\uFE0E', bn: '\u265E\uFE0E', bb: '\u265D\uFE0E', br: '\u265C\uFE0E', bq: '\u265B\uFE0E', bk: '\u265A\uFE0E',
 };
 
 export class Board {

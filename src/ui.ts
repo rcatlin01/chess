@@ -11,10 +11,10 @@ function formatTime(ms: number): string {
 }
 
 function pieceSymbol(type: string): string {
-  const map: Record<string, string> = {
-    p: '♙', n: '♘', b: '♗', r: '♖', q: '♕', k: '♔',
+  const filled: Record<string, string> = {
+    k: '\u265A', q: '\u265B', r: '\u265C', b: '\u265D', n: '\u265E', p: '\u265F',
   };
-  return map[type] || '';
+  return (filled[type] || '') + '\uFE0E';
 }
 
 export class UI {
@@ -66,7 +66,6 @@ export class UI {
     this.modeSelect.addEventListener('change', () => {
       const isAi = this.modeSelect.value === 'ai';
       this.difficultySection.style.display = isAi ? 'block' : 'none';
-      this.colorSection.style.display = isAi ? 'block' : 'none';
     });
 
     this.difficultySelect.addEventListener('change', () => {
@@ -140,10 +139,6 @@ export class UI {
   }
 
   updateStatus() {
-    if (!this.game.started) {
-      this.gameStatus.textContent = 'Ready — press New Game to start';
-      return;
-    }
     if (this.game.gameOver) {
       this.gameStatus.textContent = this.game.result;
       return;
